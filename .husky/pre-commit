@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+
+echo "Running pre-commit hooks (Biome Check)..."
+
+if [ -f "pnpm-lock.yaml" ]; then
+  PM="pnpm"
+elif [ -f "yarn.lock" ]; then
+  PM="yarn"
+elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
+  PM="bun"
+else
+  PM="npm"
+fi
+
+echo "📦 Usando: $PM"
+
+if [ "$PM" = "npm" ]; then
+  npm run lint || {
+    echo "Biome check failed. Please fix the issues before committing."
+    exit 1
+  }
+
+elif [ "$PM" = "yarn" ]; then
+  yarn lint || {
+    echo "Biome check failed. Please fix the issues before committing."
+    exit 1
+  }
+
+else
+  $PM lint || {
+    echo "Biome check failed. Please fix the issues before committing."
+    exit 1
+  }
+fi
+
+echo "➕ Adicionando arquivos modificados ao commit..."
+git add -u
+
+echo "Done."
