@@ -15,7 +15,7 @@ fi
 echo "📦 Usando: $PM"
 
 # Test
-$PM test || { echo "❌ Testes falharam"; exit 1; }
+$PM run test || { echo "❌ Testes falharam"; exit 1; }
 
 # Build
 if [ "$PM" = "npm" ]; then
