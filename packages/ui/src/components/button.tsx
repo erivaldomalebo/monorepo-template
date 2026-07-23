@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@workspace/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
